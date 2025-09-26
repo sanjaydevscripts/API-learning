@@ -1,4 +1,4 @@
-from django_rest_framework import serializers
+from django.rest_framework import serializers
 
 from students.models import Student
 
