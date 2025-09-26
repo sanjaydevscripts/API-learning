@@ -10,9 +10,16 @@ from rest_framework.decorators import api_view
 
 
 
-@api_view(['GET'])
+@api_view(['GET','POST'])
 def StudentList(request):
     if(request.method=='GET'):
         s=Student.objects.all()
         stu=StudentSerializer(s,many=True)
         return Response(stu.data,status=status.HTTP_200_OK)
+
+        #Api view for creating new record in Student table
+    if(request.method=='POST'):
+        s=StudentSerializer(data=request.data)
+        if s.is_valid():
+            s.save()
+            return Response(s.data,status=status.HTTP_201_CREATED)
